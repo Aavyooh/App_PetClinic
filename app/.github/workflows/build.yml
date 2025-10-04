@@ -42,18 +42,26 @@ jobs:
       # Step 6: Build and run unit tests with Maven    
       - name: Build with Maven
         id: maven
-        run: mvn clean install
+        run: mvn clean install # remove target folder and create a new one (do not remove the dependencies form ~/.m2/repository)
+
+      # Step 7: Upload build artifact (JAR/WAR)
+      - name: Upload Maven Artifact
+        if: steps.maven.outputs.success == 'true'  # only if build succeeds
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-build
+          path: target/*.jar 
 
       # Step 7: Configure JFrog CLI for uploading artifacts  
-      - name: Configure JFrog CLI
-        uses: jfrog/setup-jfrog-cli@v3
-        with:
-          version: latest
-        env:
-          JF_URL: https://trial8evkx7.jfrog.io/
-          JF_ACCESS_TOKEN: ${{ secrets.JFROG_TOKEN }}
+      # - name: Configure JFrog CLI
+      #   uses: jfrog/setup-jfrog-cli@v3
+      #   with:
+      #     version: latest
+      #   env:
+      #     JF_URL: https://trial8evkx7.jfrog.io/
+      #     JF_ACCESS_TOKEN: ${{ secrets.JFROG_TOKEN }}
   
-      # Step 8: Upload built JAR files to JFrog Artifactory    
-      - name: Upload JAR to JFrog
-        run: |
-           jf rt u "target/*.jar" "petjfrog-repo/"     
+      # # Step 8: Upload built JAR files to JFrog Artifactory    
+      # - name: Upload JAR to JFrog
+      #   run: |
+      #      jf rt u "target/*.jar" "petjfrog-repo/"     
