@@ -18,7 +18,6 @@ jobs:
   sonar:
      uses: ./.github/workflows/sonar.yml
      needs: build
-     if: ${{ needs.build.outputs.build-success == 'true' }}
      secrets: inherit     
 
   test:
