@@ -10,4 +10,4 @@ jobs:
  
     steps:
       - name: SonarCloud Scan
-        run: mvn clean verify sonar:sonar -Dsonar.projectKey=App_PetClinic -Dsonar.organization=aavyooh -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        run: mvn clean verify sonar:sonar -Dsonar.projectKey=Aavyooh_App_PetClinic -Dsonar.organization=aavyooh -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
