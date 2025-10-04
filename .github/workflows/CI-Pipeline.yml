@@ -1,0 +1,33 @@
+name: CI Pipeline
+on:
+  push:
+    branches:
+      - master 
+      - develop
+      - feature
+      
+env:
+        DOCKER_IMAGE: nivedanchauhan/petapp:${{ github.sha }}
+        MAVEN_OPTS: "-DskipTests=true"      
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
+
+  sonar:
+     uses: ./.github/workflows/sonar.yml
+     needs: build
+     if: ${{ needs.build.outputs.build-success == 'true' }}
+     secrets: inherit     
+
+  test:
+    uses: ./.github/workflows/test.yml
+    needs: sonar
+    secrets: inherit  
+
+  imagepush:
+    uses: ./.github/workflows/imagepush.yml
+    needs: test
+    secrets: inherit  
+    

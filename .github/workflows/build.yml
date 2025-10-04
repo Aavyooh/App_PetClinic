@@ -1,19 +1,11 @@
 # .github/workflows/build.yml
 
-# name: Build
+name: Build
 
-# # This workflow is triggered when called by another workflow
-# on: 
-#  workflow_call:
+# This workflow is triggered when called by another workflow
+on: 
+ workflow_call:
 
-
-name: CI Pipeline
-on:
-  push:
-    branches:
-      - master 
-      - develop
-      - feature
 
 jobs:
   build:
