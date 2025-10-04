@@ -1,0 +1,13 @@
+## .github/workflows/sonar.yml
+name: Sonar Scan
+
+on:
+ workflow_call:
+
+jobs:
+  sonar:
+    runs-on: self-hosted
+ 
+    steps:
+      - name: SonarCloud Scan
+        run: mvn clean verify sonar:sonar -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} -Dsonar.organization=aavyooh -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.DEVSECOPS_PIPELINE_TOKEN }}
