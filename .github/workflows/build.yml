@@ -57,7 +57,7 @@ jobs:
       # Step 7: Upload build artifact (JAR/WAR)
       - name: Upload Maven Artifact
         if: steps.maven.outputs.success == 'true'  # only if build succeeds
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: app-build
           path: target/*.jar 
